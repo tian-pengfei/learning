@@ -2,7 +2,7 @@
 
 由于学了忘了，忘了学，所以打算好好总结一下，代码很重要，担心把项目弄出问题所以必须好好学习总结一下。
 
-参考<a href="https://www.runoob.com/git/git-tutorial.html">菜鸟教程</a>、<a href="https://www.liaoxuefeng.com/wiki/896043488029600l">廖雪峰git教程</a>
+参考<a href="https://www.runoob.com/git/git-tutorial.html">菜鸟教程</a>、<a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰git教程</a>
 
 创建版本库 git init
 
@@ -22,7 +22,7 @@
 
 
 
-**本地版本库：**工作区有一个隐藏目录 .git，这个不算工作区，而是 Git 的版本库。也就是分支上哪些内容。
+**本地版本库:**   工作区有一个隐藏目录 .git，这个不算工作区，而是 Git 的版本库。也就是分支上哪些内容。
 
 版本库上的分支与工作区间可以想象成两套文件，git实现的效果反正是这样，至于怎么样实现的咱们就不必关心。
 
