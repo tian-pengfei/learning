@@ -137,3 +137,5 @@ git checkout HEAD <file>
 你很漂亮！（ You are beautiful! ）
 
 你很棒！（You're great!）
+
+我爱你 （I LOVE YOU !）
