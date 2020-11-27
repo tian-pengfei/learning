@@ -130,7 +130,7 @@ git checkout HEAD <file>
 
 ## 版本回退
 
-实践的过程中理解更深，下面三句话 我每写一句，就会提交到本地。
+实践的过程中理解更深，下面三句话我写到一个text.txt文件中。我每写一句，就会提交到本地。
 
 
 
@@ -139,3 +139,19 @@ git checkout HEAD <file>
 你很棒！（You're great!）
 
 我爱你 （I LOVE YOU !）
+
+
+
+上面这三句话我每写一句话就提交到了本地版本库中，我们怎么查看记录呢？这就用到了 下面的命令
+
+```shell
+git log 
+```
+
+ 这个命令有很多参数，具体使用可查看 <a herf="https://www.runoob.com/git/git-commit-history.html#git-log">git log</a>
+
+我么用这个命令来查看一下，我们刚才提交的`git log --pretty=oneline ` 下图就是我们刚才提交的log
+
+![image-20201127232506690](image/image-20201127232506690.png)
+
+很明显前三个是我们对应提交的
