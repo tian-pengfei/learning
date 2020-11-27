@@ -124,5 +124,23 @@ git checkout HEAD <file>
 
 展示效果：
 
-![image-20201127223225471](image/image-20201127223225471.png)
+![image-20201127225833452](image/image-20201127225833452.png)
+
+
+
+## 版本回退
+
+
+
+```code
+┌────┐
+│HEAD│
+└────┘
+   │
+   │    ○ append GPL
+   │    │
+   └──> ○ add distributed
+        │
+        ○ wrote a readme file
+```
 
