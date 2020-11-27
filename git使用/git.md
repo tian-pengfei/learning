@@ -130,17 +130,9 @@ git checkout HEAD <file>
 
 ## 版本回退
 
+实践的过程中理解更深，下面三句话 我每写一句，就会提交到本地。
 
 
-```code
-┌────┐
-│HEAD│
-└────┘
-   │
-   │    ○ append GPL
-   │    │
-   └──> ○ add distributed
-        │
-        ○ wrote a readme file
-```
+
+
 
