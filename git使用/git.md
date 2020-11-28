@@ -14,7 +14,7 @@
 
 ![image-20201126224141671](image/image-20201126224141671.png)
 
-**暂存区:**英文叫 stage 或 index。一般存放在  .git 目录下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。
+ **暂存区：** 英文叫 stage 或 index。一般存放在  .git 目录下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。
 
 一般提交到版本库之前从工作区复制一份放到先放到这里。
 
