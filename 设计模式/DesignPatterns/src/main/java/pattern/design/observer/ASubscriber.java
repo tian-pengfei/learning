@@ -1,4 +1,4 @@
-package design.pattern.observer;
+package pattern.design.observer;
 
 public class ASubscriber implements Subscriber,UseProduct{
     NewsPaper newsPaper;

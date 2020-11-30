@@ -1,4 +1,4 @@
-package design.pattern.observer;
+package pattern.design.observer;
 
 public interface Subscriber {
 

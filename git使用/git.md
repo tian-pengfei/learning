@@ -334,8 +334,18 @@ git reset --soft HEAD^
 * HEAD^^ 上上一个版本
 
 * HEAD^^^ 上上上一个版本
+
 * HEAD~0 表示当前版本
+
 * HEAD~1 上一个版本
+
 * HEAD^2 上上一个版本
+
 * HEAD^3 上上上一个版本
+
 * git reset HEAD 清空暂存区
+
+  ## 增加分支和合并
+
+  
+
