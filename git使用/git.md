@@ -371,6 +371,12 @@ head指针表示当前操作的位置，整个分支就是版本库的信息。�
 
 
 
+查看分支
+
+```shell
+git branch
+```
+
 建立分支
 
 ```shell
@@ -381,15 +387,15 @@ git branch (branchname)
 
 切换分支命令:
 
-```
-git checkout (branchname)
+```shell
+git checkout -b <branchname>或者git switch -c <branchname>
 ```
 
 
 
 当前分支合并到主分支上
 
-```
+```shell
 git merge
 ```
 
@@ -397,17 +403,21 @@ git merge
 
 创建分支并切换创建分支上
 
-```
-git checkout -b branchname
+```shell
+git checkout -b <branchname> 或者git branch -d <branchname>
 ```
 
+删除分支
 
+```shell
+git branch -d <name>
+```
 
 
 
 后面会统一讲合并
 
-## 第四个储存空间
+## 第四个储存空间（缓存）
 
 ​		除了工作空间、分支、暂存区。还有一个地方可以存储，那就是stash。不过它保存的是当前工作空间的状态，主要的作用是防止丢失工作工作间修改单位提交的内容。比如你正在修改内容，突然需要切换分支来一件事情，以往情况下，如果你不把当前分支上修改的内容提交了你就无法切换分支。咱么下面来尝试一下使用吧。
 
@@ -423,6 +433,8 @@ git checkout -b branchname
 
 接下来要做就是保存工作空间，在切换到master在切换回dev在做，然后还原工作空间。
 
+
+
 ![image-20201202223944264](image/image-20201202223944264.png)
 
 ![image-20201202223957641](image/image-20201202223957641.png)
@@ -431,5 +443,53 @@ git checkout -b branchname
 
 ![image-20201202224126188](image/image-20201202224126188.png)
 
-工作空间里面文件又还原了，这是多么方便。
+工作空间里面文件又还原了，这是多么方便，这里只提到了它的简单使用。详细使用参考这里<a href="https://git-scm.com/docs/git-stash">git-stash</a>
+
+
+
+## 远程仓库
+
+​	怎么样才能合作写代码，这就依靠到了远程仓库。我们把自己做的那部分提交到远程分支，从而大大提高了开发效率，让工作人员专注于开发。
+
+有了远程分支git才完整的，让我们来看一下我们工作中git使用整体图。
+
+
+
+![img](image/git-command.jpg)
+
+我们接下来看一下远程仓库怎么使用。
+
+第一种情况：远程空仓库，想把本地仓库更新到远程仓库上
+
+```shell
+git remote add [remoteRepositoryName] [remoteUrl]  //就会生成一个remoteRepositoryName名字的仓库 仓库的名字和分支的名字要分清楚
+```
+
+就会把本地仓库更新到了远程仓库。用`git remote -v`查看远程仓库。
+
+![image-20201202235442771](image/image-20201202235442771.png)
+
+
+
+
+
+把本地库所有内容推动到远程库
+
+```shell
+git push -u origin master
+```
+
+
+
+本地作了提交，把提交内容推送到远程仓库的命令
+
+```
+git push origin master
+```
+
+
+
+
+
+第一种情况：远程有仓库，我想把远程仓库拉下来建立一个本地仓库（新来的员工）
 
