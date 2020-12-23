@@ -14,4 +14,8 @@ public class Singleton {
         }
         return uniqueSingleton;
     }
+
+    public static void main(String[] args) {
+        uniqueSingleton = new Singleton();
+    }
 }
