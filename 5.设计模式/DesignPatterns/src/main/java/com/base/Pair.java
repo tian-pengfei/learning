@@ -1,7 +1,11 @@
 package com.base;
 
 
-public class Pair<T>
+import com.sun.org.apache.xpath.internal.objects.XString;
+
+import java.io.Serializable;
+
+public class Pair<T extends Comparable& Serializable>
 {
     private T first;
     private T second;
@@ -11,4 +15,11 @@ public class Pair<T>
     public T getSecond() { return second; }
     public void setFirst(T newValue) { first = newValue; }
     public void setSecond(T newValue) { second = newValue; }
+
+    public static void main(String[] args) {
+        Pair<String> strPair=new Pair<>();
+        strPair.setFirst("str1");
+       String str= strPair.getFirst();
+    }
+
 }
