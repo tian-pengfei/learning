@@ -1,5 +1,7 @@
 package pattern.design.singleton;
 
+import java.util.ArrayList;
+
 public class Singleton {
     private static volatile Singleton uniqueSingleton =new Singleton();
     private Singleton(){}
@@ -14,7 +16,7 @@ public class Singleton {
         }
         return uniqueSingleton;
     }
-
+   
     public static void main(String[] args) {
         uniqueSingleton = new Singleton();
     }

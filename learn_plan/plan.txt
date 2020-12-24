@@ -1,0 +1,24 @@
+1.java 核心技术全部总结完，一直要在各方面做补充
+2.JDK源码学习，总结出源码中值得学习的地方
+3.spring总结完，要完全理解。（Spring SpringBoot SpringCloud）
+4.总结spring源码值得学习的地方。（注意里面的设计模式）
+5.Linux学习 centos配置 nginx配置 虚拟容器学习（docker k8s）  熟练vi/vim的使用
+6.mybatis学习，原理源码相关学习
+7.netty学会怎么使用，源码相关学习。
+8.servlet，tomcat源码相关学习，
+9.数据库学习，原理，mysql，MongoDB redis
+10.计算机网络学习，http重点学习总结
+11. JVM学习
+12.操作系统，组成原理学习
+13.数据结构+算法+竞赛相关算法学习
+14.js vue vue_cli学习 --------简单学习。
+15.english好好学习（口语不强求，阅读能力提升上去）
+16.GO语言学习----好好学习
+17.c/c++学习
+18.Linux源码学习
+19 设计模式学习
+20 分布式学习 微服务 
+21.git/meaven/gradle学习
+22.大数据相关知识的学习
+23.减肥
+
