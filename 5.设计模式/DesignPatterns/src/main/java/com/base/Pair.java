@@ -5,10 +5,10 @@ import com.sun.org.apache.xpath.internal.objects.XString;
 
 import java.io.Serializable;
 
-public class Pair<T extends Comparable& Serializable>
+public class Pair<T>
 {
-    private T first;
-    private T second;
+    protected T first;
+    protected T second;
     public Pair() { first = null ; second = null ; }
     public Pair(T first, T second) { this.first = first; this.second = second; }
     public T getFirst() { return first; }
@@ -17,9 +17,7 @@ public class Pair<T extends Comparable& Serializable>
     public void setSecond(T newValue) { second = newValue; }
 
     public static void main(String[] args) {
-        Pair<String> strPair=new Pair<>();
-        strPair.setFirst("str1");
-       String str= strPair.getFirst();
+
     }
 
 }
