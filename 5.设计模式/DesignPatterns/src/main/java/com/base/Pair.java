@@ -4,6 +4,7 @@ package com.base;
 import com.sun.org.apache.xpath.internal.objects.XString;
 
 import java.io.Serializable;
+import java.util.*;
 
 public class Pair<T>
 {
@@ -18,6 +19,7 @@ public class Pair<T>
 
     public static void main(String[] args) {
 
+        Map
     }
 
 }
