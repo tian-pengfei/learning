@@ -1,7 +1,10 @@
 package com.base;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class Datelnterval extends Pair<LocalDate>{
 
@@ -12,8 +15,7 @@ public class Datelnterval extends Pair<LocalDate>{
     }
 
     public static void main(String[] args) {
-        Pair<String>[] table = new Pair<String>[10];
-        List
+        LinkedHashMap
     }
     }
 }
