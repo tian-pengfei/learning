@@ -1,6 +1,7 @@
 package com.java.base.io;
 
 import java.io.*;
+import java.util.zip.ZipOutputStream;
 
 public class MyClass {
 
@@ -16,8 +17,10 @@ public class MyClass {
             data =input.read();
 
         }
-        RandomAccessFile
-
+        FileInputStream
+//        FileOutputStream
+                BufferedOutputStream
+//        ByteArrayInputStream
 
     }
 }
