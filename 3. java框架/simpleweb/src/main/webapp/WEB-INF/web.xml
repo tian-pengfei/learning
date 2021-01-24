@@ -2,8 +2,33 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
+
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+    <context-param>
+      <param-name>contextParam</param-name>
+      <param-value>the value</param-value>
+    </context-param>
+
   <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+      <servlet-name>HelloServlet</servlet-name>
+      <servlet-class>com.tpf.servlet.HelloServlet</servlet-class>
+
+      <init-param>
+        <param-name>myParam</param-name>
+        <param-value>paramValue</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>HelloServlet</servlet-name>
+      <url-pattern>/webxml</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>
+
+

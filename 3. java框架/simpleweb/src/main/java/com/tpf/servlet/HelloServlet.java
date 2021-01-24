@@ -1,40 +1,37 @@
 package com.tpf.servlet;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/hello")
-public class HelloServlet extends HttpServlet {
+public class HelloServlet implements Servlet {
 
+    String myParam=null;
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.setHeader("Content-Type", "text/html;charset=UTF-8");
-        resp.getOutputStream().write("<html><h1>你好哇</h1></html>".getBytes("UTF-8"));
+    public void init(ServletConfig config) throws ServletException {
+        System.out.println("加载了");
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.getOutputStream().write("<html><h>你好哇</h></html>".getBytes("UTF-8"));
+    public ServletConfig getServletConfig() {
+        return null;
     }
 
     @Override
-    public void init() throws ServletException {
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        String contextParam=(String)req.getServletContext().getAttribute("contextParam");
+        res.getWriter().write("contextParam is  "+contextParam);
+    }
 
+    @Override
+    public String getServletInfo() {
+        return null;
     }
 
     @Override
     public void destroy() {
 
     }
-
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }
+
+
