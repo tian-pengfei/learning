@@ -644,9 +644,10 @@ Servlet filter 能够拦截请求servlet JSP html文件或者其他静态文件�
 
 
 
-
+用于压缩响应的内容
 
 ## 1.14GZip Servlet Filter
 
 
 
+每个请求都会有一个线程，对于servlet里面的service方法用到公用的对象就会引发线程安全的问题，需要我们做一些处理。
