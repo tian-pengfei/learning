@@ -12,7 +12,7 @@ public class Randoms {
                 .filter(w->w.length()>12);
         longwords.forEach(System.out::println);
         base.forEach(System.out::println);//error
-        Optional
+
     }
 
 }
