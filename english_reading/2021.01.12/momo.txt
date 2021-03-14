@@ -1,0 +1,3 @@
+grep -o '>\([a-z\s]\+\)<' wy.xml | sed 's/>//;s/<//' > wy.txt
+  grep -o '<word>\([a-zA-Z[:space:]]\+\)</word>' wy.xml  | sed 's/<word>//;s/<\/word>//' > wy.txt
+

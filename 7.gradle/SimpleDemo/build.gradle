@@ -1,0 +1,41 @@
+
+import com.test.plugins.GreekTask
+
+plugins {
+    id 'java'
+    // id 'MyPlugins'
+    id 'MyGroovyPlugin'
+}
+
+
+greeting{
+    message = 'Hi from Gradle'
+    name ='tom'
+}
+//
+//group 'org.example'
+//version '1.0-SNAPSHOT'
+//
+//repositories {
+//
+//    mavenCentral()
+//}
+//
+//dependencies {
+//    implementation gradleApi()
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//}
+//task sayHello(group:"greek"){
+//   println("hello")
+//    doLast{
+//        println("task hello")
+//    }
+//}
+task createGreekAction(type: GreekTask){
+
+    perName "小明"
+    doLast{
+
+    }
+}
+

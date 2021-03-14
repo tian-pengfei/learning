@@ -1,2 +1,8 @@
-package com.atguigu.springcloud.service;public interface paymentService {
+package com.atguigu.springcloud.service;
+
+import com.atguigu.springcloud.entities.Payment;
+
+public interface PaymentService {
+    public int create(Payment payment);
+    public Payment getPayment( Long id);
 }

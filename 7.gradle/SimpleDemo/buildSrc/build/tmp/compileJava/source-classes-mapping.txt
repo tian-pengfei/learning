@@ -1,0 +1,2 @@
+com/test/plugins/MyPlugin.java
+ com.test.plugins.MyPlugin
