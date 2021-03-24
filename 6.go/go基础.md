@@ -1764,3 +1764,1016 @@ iterate: greece 97
 
 
 
+
+
+
+
+### Go语言list（列表）
+
+​		列表是一种非连续的存储容器，由多个节点组成，节点通过一些变量记录彼此之间的关系，列表有多种实现方法，如单链表、双链表等。（有点像java的LinkedList）
+
+在Go语言中，列表使用 container/list 包来实现，内部的实现原理是双链表，列表能够高效地进行任意位置的元素插入和删除操作。
+
+
+
+**-----初始化列表**
+
+1) 通过 container/list 包的 New() 函数初始化 list
+
+
+
+> 变量名 := list.New()
+
+
+
+
+
+2) 通过 var 关键字声明初始化 list
+
+> var 变量名 list.List
+
+
+
+列表与切片和 map 不同的是，列表并没有具体元素类型的限制，因此，列表的元素可以是任意类型，这既带来了便利，也引来一些问题，例如给列表中放入了一个 interface{} 类型的值，取出值后，如果要将 interface{} 转换为其他类型将会发生宕机。
+
+
+
+**-----在列表中插入元素**
+
+给list 添加元素：
+
+```go
+l := list.New()  //实例化一个列表 l为 ----------- *list 类型
+l.PushBack("fist") //在列表的尾部插入一个元素   返回一个*(list.element)类型
+l.PushFront(67)   //在列表的头部插入一个元素 
+```
+
+
+
+![image-20210322222407751](image/image-20210322222407751.png)
+
+| 方  法                                                | 功  能                                            |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| InsertAfter(v interface {}, mark * Element) * Element | 在 mark 点之后插入元素，mark 点由其他插入函数提供 |
+| InsertBefore(v interface {}, mark * Element) *Element | 在 mark 点之前插入元素，mark 点由其他插入函数提供 |
+| PushBackList(other *List)                             | 添加 other 列表元素到尾部                         |
+| PushFrontList(other *List)                            | 添加 other 列表元素到头部                         |
+
+
+
+**------从列表中删除元素**
+
+​		列表插入函数的返回值会提供一个 *list.Element 结构，这个结构记录着列表元素的值以及与其他节点之间的关系等信息，从列表中删除元素时，需要用到这个结构进行快速删除。
+
+也就是通过它的地址去删除，感觉这样会大大提高删除的效率
+
+```go
+package main
+import "container/list"
+func main() {
+    l := list.New()
+    // 尾部添加
+    l.PushBack("canon")
+    // 头部添加
+    l.PushFront(67)
+    // 尾部添加后保存元素句柄
+    element := l.PushBack("fist")
+    // 在fist之后添加high
+    l.InsertAfter("high", element)
+    // 在fist之前添加noon
+    l.InsertBefore("noon", element)
+    // 使用
+    l.Remove(element)
+}
+```
+
+
+
+​																									整个过程
+
+| 操作内容                        | 列表元素                    |
+| ------------------------------- | --------------------------- |
+| l.PushBack("canon")             | canon                       |
+| l.PushFront(67)                 | 67, canon                   |
+| element := l.PushBack("fist")   | 67, canon, fist             |
+| l.InsertAfter("high", element)  | 67, canon, fist, high       |
+| l.InsertBefore("noon", element) | 67, canon, noon, fist, high |
+| l.Remove(element)               | 67, canon, noon, high       |
+
+
+
+**-----遍历列表——访问列表的每一个元素**
+
+```go
+l := list.New()
+// 尾部添加
+l.PushBack("canon")
+// 头部添加
+l.PushFront(67)
+for i := l.Front(); i != nil; i = i.Next() {
+    fmt.Println(i.Value)
+}
+```
+
+
+
+```go
+67
+canon
+```
+
+
+
+
+
+### Go语言nil：空值/零值
+
+在Go语言中，布尔类型的零值（初始值）为 false，数值类型的零值为 0，字符串类型的零值为空字符串`""`，而指针、切片、映射、通道、函数和接口的零值则是 nil。
+
+nil 是Go语言中一个预定义好的标识符，有过其他编程语言开发经验的开发者也许会把 nil 看作其他语言中的 null（NULL），其实这并不是完全正确的，因为Go语言中的 nil 和其他语言中的 null 有很多不同点。
+
+
+
+**-----nil 标识符是不能比较的**
+
+```go
+fmt.Println(nil==nil)  //error invalid operation: nil == nil (operator == not defined on nil)
+```
+
+
+
+
+
+**----nil 不是关键字或保留字**
+
+nil 并不是Go语言的关键字或者保留字，也就是说我们可以定义一个名称为 nil 的变量，比如下面这样：
+
+```go
+var nil = errors.New("my god") //不提倡这么做
+```
+
+
+
+**----nil 没有默认类型**
+
+```go
+  	fmt.Printf("%T", nil)
+    print(nil)  //use of untyped nil
+```
+
+
+
+**----不同类型 nil 的指针是一样的**
+
+
+
+```go
+	var arr []int
+    var num *int
+    fmt.Printf("%p\n", arr)
+    fmt.Printf("%p", num)
+```
+
+```text
+0x0
+0x0
+```
+
+
+
+**-----不同类型的 nil 是不能比较的**
+
+![image-20210322225118030](image/image-20210322225118030.png)
+
+
+
+
+
+**-----两个相同类型的 nil 值也可能无法比较**
+
+![image-20210322225201489](image/image-20210322225201489.png)
+
+
+
+
+
+
+
+**----nil 是 map、slice、pointer、channel、func、interface 的零值**
+
+```go
+  	var m map[int]string
+    var ptr *int
+    var c chan int
+    var sl []int
+    var f func()
+    var i interface{}
+    fmt.Printf("%#v\n", m)
+    fmt.Printf("%#v\n", ptr)
+    fmt.Printf("%#v\n", c)
+    fmt.Printf("%#v\n", sl)
+    fmt.Printf("%#v\n", f)
+    fmt.Printf("%#v\n", i)
+```
+
+```text
+map[int]string(nil)
+(*int)(nil)
+(chan int)(nil)
+[]int(nil)
+(func())(nil)
+<nil>
+```
+
+
+
+**-----不同类型的 nil 值占用的内存大小可能是不一样的**
+
+```go
+ 	var p *struct{}
+    fmt.Println( unsafe.Sizeof( p ) ) // 8
+    var s []int
+    fmt.Println( unsafe.Sizeof( s ) ) // 24
+    var m map[int]bool
+    fmt.Println( unsafe.Sizeof( m ) ) // 8
+    var c chan string
+    fmt.Println( unsafe.Sizeof( c ) ) // 8
+    var f func()
+    fmt.Println( unsafe.Sizeof( f ) ) // 8
+    var i interface{}
+    fmt.Println( unsafe.Sizeof( i ) ) // 16
+```
+
+具体的大小取决于编译器和架构，上面打印的结果是在 64 位架构和标准编译器下完成的，对应 32 位的架构的，打印的大小将减半。	
+
+
+
+### Go语言make和new关键字的区别及实现原理
+
+ new 和 make 是两个内置函数，主要用来创建并分配类型的内存。
+
+new 只分配内存，而 make 只能用于 slice、map 和 channel 的初始化，下面我们就来具体介绍一下。
+
+**------new**
+
+```go
+// The new built-in function allocates memory. The first argument is a type,
+// not a value, and the value returned is a pointer to a newly
+// allocated zero value of that type.
+func new(Type) *Type
+```
+
+new 函数只接受一个参数，这个参数是一个类型，并且返回一个指向该类型内存地址的指针。同时 new 函数会把分配的内存置为零，也就是类型的零值。
+
+```go
+	var sum *int
+	fmt.Println(sum)
+	sum = new(int) //分配空间
+	fmt.Println(*sum)
+	*sum = 98
+	fmt.Println(*sum)
+```
+
+```go
+<nil>
+0
+98
+```
+
+
+
+```go
+var s *Student
+s = new(Student) //分配空间
+fmt.Println(s)
+s.name ="dequan"
+fmt.Println(s)
+```
+
+```text
+&{ 0}
+&{dequan 0}
+```
+
+
+
+
+
+**----make**
+
+make 也是用于内存分配的，但是和 new 不同，它只用于 chan、map 以及 slice 的内存创建，而且它返回的类型就是这三个类型本身，而不是他们的指针类型，因为这三种类型就是引用类型，所以就没有必要返回他们的指针了。 
+
+引用类型（和java一样？？？？）
+
+```go
+// The make built-in function allocates and initializes an object of type
+// slice, map, or chan (only). Like new, the first argument is a type, not a
+// value. Unlike new, make's return type is the same as the type of its
+// argument, not a pointer to it. The specification of the result depends on
+// the type:
+// Slice: The size specifies the length. The capacity of the slice is
+// equal to its length. A second integer argument may be provided to
+// specify a different capacity; it must be no smaller than the
+// length, so make([]int, 0, 10) allocates a slice of length 0 and
+// capacity 10.
+// Map: An empty map is allocated with enough space to hold the
+// specified number of elements. The size may be omitted, in which case
+// a small starting size is allocated.
+// Channel: The channel's buffer is initialized with the specified
+// buffer capacity. If zero, or the size is omitted, the channel is
+// unbuffered.
+func make(t Type, size ...IntegerType) Type
+```
+
+```go
+注意：make 函数只用于 map，slice 和 channel，并且不返回指针。如果想要获得一个显式的指针，可以使用 new 函数进行分配，或者显式地使用一个变量的地址。
+```
+
+
+
+Go语言中的 new 和 make 主要区别如下：
+
+- make 只能用来分配及初始化类型为 slice、map、chan 的数据。new 可以分配任意类型的数据；
+- new 分配返回的是指针，即类型 *Type。make 返回引用，即 Type；
+- new 分配的空间被清零。make 分配空间后，会进行初始化。
+
+
+
+**----实现原理**
+
+​		**----make**
+
+![img](image/4-1ZZ31I35HJ.gif)
+
+在编译期的类型检查阶段，Go语言其实就将代表 make 关键字的 OMAKE 节点根据参数类型的不同转换成了 OMAKESLICE、OMAKEMAP 和 OMAKECHAN 三种不同类型的节点，这些节点最终也会调用不同的运行时函数来初始化数据结构。
+
+
+
+​			**---new**
+
+​						内置函数 new 会在编译期的 SSA 代码生成阶段经过 callnew 函数的处理，如果请求创建的类型大小是 0，那么就会返回一个表示空指针的 				      zerobase 变量，在遇到其他情况时会将关键字转换成 newobject：
+
+```go
+func callnew(t *types.Type) *Node {
+    if t.NotInHeap() {
+        yyerror("%v is go:notinheap; heap allocation disallowed", t)
+    }
+    dowidth(t)
+    if t.Size() == 0 {
+        z := newname(Runtimepkg.Lookup("zerobase"))
+        z.SetClass(PEXTERN)
+        z.Type = t
+        return typecheck(nod(OADDR, z, nil), ctxExpr)
+    }
+    fn := syslook("newobject")
+    fn = substArgTypes(fn, t)
+    v := mkcall1(fn, types.NewPtr(t), nil, typename(t))
+    v.SetNonNil(true)
+    return v
+}
+```
+
+需要提到的是，哪怕当前变量是使用 var 进行初始化，在这一阶段也可能会被转换成 newobject 的函数调用并在堆上申请内存：
+
+```go
+func walkstmt(n *Node) *Node {
+    switch n.Op {
+    case ODCL:
+        v := n.Left
+        if v.Class() == PAUTOHEAP {
+            if prealloc[v] == nil {
+                prealloc[v] = callnew(v.Type)
+            }
+            nn := nod(OAS, v.Name.Param.Heapaddr, prealloc[v])
+            nn.SetColas(true)
+            nn = typecheck(nn, ctxStmt)
+            return walkstmt(nn)
+        }
+    case ONEW:
+        if n.Esc == EscNone {
+            r := temp(n.Type.Elem())
+            r = nod(OAS, r, nil)
+            r = typecheck(r, ctxStmt)
+            init.Append(r)
+            r = nod(OADDR, r.Left, nil)
+            r = typecheck(r, ctxExpr)
+            n = r
+        } else {
+            n = callnew(n.Type.Elem())
+        }
+    }
+}
+```
+
+当然这也不是绝对的，如果当前声明的变量或者参数不需要在当前作用域外生存，那么其实就不会被初始化在堆上，而是会初始化在当前函数的栈中并随着函数调用的结束而被销毁。
+
+newobject 函数的工作就是获取传入类型的大小并调用 mallocgc 在堆上申请一片大小合适的内存空间并返回指向这片内存空间的指针：
+
+```go
+func newobject(typ *_type) unsafe.Pointer {
+    return mallocgc(typ.size, typ, true)
+}
+```
+
+**----总结**
+
+​		最后，简单总结一下Go语言中 make 和 new 关键字的实现原理，make 关键字的主要作用是创建 slice、map 和 Channel 等内置的数据结构，而 new 的主要作用是为类型申请一片内存空间，并返回指向这片内存的指针。
+
+**指针和引用有什么区别呢？**
+
+https://www.php.cn/be/go/439923.html
+
+感觉和c++的指针和引用差不多
+
+
+
+
+
+
+
+## Go语言流程控制
+
+### Go语言if else（分支结构）
+
+
+
+```go
+if condition {
+    // do something
+}
+```
+
+
+
+```go
+if condition {
+    // do something
+} else {
+    // do something
+}
+```
+
+
+
+```go
+if condition1 {
+    // do something
+} else if condition2 {
+    // do something else
+}else {
+    // catch-all or default
+}
+```
+
+​		关键字 if 和 else 之后的左大括号`{`必须和关键字在同一行，如果你使用了 else if 结构，则前段代码块的右大括号`}`必须和 else if 关键字在同一行，这两条规则都是被编译器强制规定的。
+
+
+
+![image-20210323222855217](image/image-20210323222855217.png)
+
+
+
+**----特殊写法**
+
+```go
+if err := Connect(); err != nil {
+    fmt.Println(err)
+    return
+}
+```
+
+
+
+
+
+### Go语言for（循环结构）
+
+>  Go语言中的循环语句只支持 for 关键字
+
+一般用法
+
+```go
+sum := 0
+for i := 0; i < 10; i++ {
+    sum += i
+}
+```
+
+
+
+无限循环写法
+
+```go
+sum := 0
+for {
+    sum++
+    if sum > 100 {
+        break
+    }
+}
+```
+
+
+
+注意事项
+
+- 左花括号`{`必须与 for 处于同一行。
+- Go语言不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量。
+- go的beak可以决定中止哪个循环
+
+
+
+```go
+JLoop:for j := 0; j < 5; j++ {
+   for i := 0; i < 10; i++ {
+         if i > 5 {
+            break JLoop  //利用了标签，中止了外层循环 
+         }
+         fmt.Println(i)
+      }
+   }
+```
+
+
+
+**只有一个循环条件的循环**
+
+```go
+var i int
+for i <= 10 {
+    i++
+}
+```
+
+
+
+### Go语言for range（键值循环）
+
+for range 结构是Go语言特有的一种的迭代结构,for range 可以遍历数组、切片、字符串、map 及通道（channel）.类似于java的foreach
+
+```go
+for key, val := range coll {
+    ...
+}
+```
+
+
+
+key, val 是拷贝过来的无法修改，被遍历的数据
+
+```go
+for pos, char := range str {
+    ...
+}
+```
+
+
+
+一个字符串是 Unicode 编码的字符（或称之为 rune ）集合,也可以遍历
+
+```go
+for pos, char := range str {
+    ...
+}
+```
+
+
+
+规律：
+
+- 数组、切片、字符串返回索引和值。
+- map 返回键和值。
+- 通道（channel）只返回通道内的值。
+
+
+
+**遍历通道（channel）——接收通道数据**
+
+只总结一下通道
+
+```go
+c := make(chan int)
+go func() {
+    c <- 1
+    c <- 2
+    c <- 3
+    close(c)
+}()
+for v := range c {
+    fmt.Println(v)
+}
+```
+
+
+
+- 第 1 行创建了一个整型类型的通道。
+- 第 3 行启动了一个 goroutine，其逻辑的实现体现在第 5～8 行，实现功能是往通道中推送数据 1、2、3，然后结束并关闭通道。
+- 这段 goroutine 在声明结束后，在第 9 行马上被执行。
+- 从第 11 行开始，使用 for range 对通道 c 进行遍历，其实就是不断地从通道中取数据，直到通道被关闭。
+
+
+
+### Go语言switch case语句
+
+
+
+**----基本写法**
+
+不用在每一个写beak
+
+```go
+var a = "hello"
+switch a {
+case "hello":
+    fmt.Println(1)
+case "world":
+    fmt.Println(2)
+default:
+    fmt.Println(0)
+}
+```
+
+**-----一分支多值**
+
+```go
+var a = "mum"
+switch a {
+case "mum", "daddy":
+    fmt.Println("family")
+}
+```
+
+
+
+####  **-----分支表达式**
+
+```go
+var r int = 11
+switch {
+case r > 10 && r < 20:
+    fmt.Println(r)
+}
+```
+
+
+
+
+
+**跨越 case 的 fallthrough——兼容C语言的 case 设计**
+
+```go
+var s = "hello"
+switch {
+case s == "hello":
+    fmt.Println("hello")
+    fallthrough
+case s != "world":
+    fmt.Println("world")
+}
+```
+
+fallthrough相当于break ，可能就是为了兼容这种风格吧
+
+
+
+
+
+### Go语言goto语句——跳转到指定的标签
+
+
+
+**----使用 goto 退出多层循环**
+
+
+
+```go
+    for x := 0; x < 10; x++ {
+        for y := 0; y < 10; y++ {
+            if y == 2 {
+                // 跳转到标签
+                goto breakHere
+            }
+        }
+    }
+    // 手动返回, 避免执行进入标签
+    return
+    // 标签
+breakHere:
+    fmt.Println("done")
+```
+
+```text
+done
+```
+
+
+
+**-----使用 goto 集中处理错误**
+
+
+
+```go
+ err := firstCheckError()
+    if err != nil {
+        goto onExit
+    }
+    err = secondCheckError()
+    if err != nil {
+        goto onExit
+    }
+    fmt.Println("done")
+    return
+onExit:
+    fmt.Println(err)
+    exitProcess()
+```
+
+
+
+### Go语言break（跳出循环）
+
+退出某个标签对应的代码块，标签要求必须定义在对应的 for、switch 和 select 的代码块上。
+
+
+
+```go
+OuterLoop:
+    for i := 0; i < 2; i++ {
+        for j := 0; j < 5; j++ {
+            switch j {
+            case 2:
+                fmt.Println(i, j)
+                break OuterLoop
+            case 3:
+                fmt.Println(i, j)
+                break OuterLoop
+            }
+        }
+    }
+```
+
+
+
+```text
+0 2
+```
+
+
+
+
+
+### Go语言continue  
+
+同样可以使用标签
+
+```go
+OuterLoop:
+    for i := 0; i < 2; i++ {
+        for j := 0; j < 5; j++ {
+            switch j {
+            case 2:
+                fmt.Println(i, j)
+                continue OuterLoop
+            }
+        }
+    }
+```
+
+```go
+0 2
+1 2
+```
+
+
+
+## Go语言函数
+
+
+
+Go 语言的函数属于“一等公民”（first-class），也就是说：
+
+- 函数本身可以作为值进行传递。
+- 支持匿名函数和闭包（closure）。
+- 函数可以满足接口。
+
+
+
+### Go语言函数声明
+
+函数的基本组成为：关键字 func、函数名、参数列表、返回值、函数体和返回语句
+
+最好把 main() 函数写在文件的前面，其他函数按照一定逻辑顺序进行编写
+
+
+
+return 语句可以带有零个或多个参数,简单的 return 语句也可以用来结束 for 的死循环，或者结束一个协程（goroutine）。(后面有示例)
+
+Go语言里面拥三种类型的函数：
+
+- 普通的带有名字的函数
+- 匿名函数或者 lambda 函数
+- 方法  ？？？？？
+
+
+
+**普通函数声明（定义）**
+
+```go
+func 函数名(形式参数列表)(返回值列表){
+    函数体
+}
+```
+
+
+
+两个等价的声明，（注意简写方法）
+
+```go
+func f(i, j, k int, s, t string) { /* ... */ }
+func f(i int, j int, k int, s string, t string) { /* ... */ }
+```
+
+
+
+**----函数的返回值**
+
+Go语言支持多返回值，go语言经常使用多返回值中的最后一个返回参数返回函数执行中可能发生的错误。
+
+```go
+conn, err := connectToNetwork()
+```
+
+1) 同一种类型返回值
+
+如果返回值是同一种类型，则用括号将多个返回值类型括起来，用逗号分隔每个返回值的类型。
+
+使用 return 语句返回时，值列表的顺序需要与函数声明的返回值类型一致，示例代码如下：
+
+
+
+ ```go
+func typedTwoValues() (int, int) {
+    return 1, 2
+}
+func main() {
+    a, b := typedTwoValues()
+    fmt.Println(a, b)
+}
+ ```
+
+```go
+1 2
+```
+
+2) 带有变量名的返回值
+
+```go
+func namedRetValues() (a, b int) {
+    a = 1
+    b = 2
+    return
+}
+```
+
+上面代码中的函数拥有两个整型返回值，**函数声明时将返回值命名为 a 和 b，**因此可以在函数体中直接对函数返回值进行赋值，在命名的返回值方式的函数体中，在函数结束前需要显式地使用 return 语句进行返回
+
+
+
+当函数使用命名返回值时，可以在 return 中不填写返回值列表，如果填写也是可行的，下面代码的执行效果和上面代码的效果一样
+
+```go
+func namedRetValues() (a, b int) {
+    a = 1
+    return a, 2
+}
+```
+
+
+
+**-----调用函数**
+
+​		
+
+### Go语言函数中的参数传递
+
+​		Go语言中传入与返回参数在调用和返回时都使用**值传递**，这里需要注意的是指针、切片和 map 等引用型对象在参数传递中不会发生复制，而是将指针进行复制，类似于创建一次引用(也是值传递，值是指针而已)。
+
+
+
+### Go语言函数变量——把函数作为值保存到变量中
+
+，函数也是一种类型，可以和其他类型一样保存在变量中
+
+
+
+```go
+func fire() {
+	fmt.Println("fire")
+}
+func main() {
+	var f func()
+	f = fire
+	f()
+}
+```
+
+```text
+fire
+```
+
+
+
+
+
+
+
+### Go语言字符串的链式处理——操作与数据分离的设计技巧
+
+函数可以作为变量，变量也可以存储一个函数数组， 遍历这个函数，传入想要处理的内容
+
+```go
+package main
+import (
+    "fmt"
+    "strings"
+)
+// 字符串处理函数，传入字符串切片和处理链
+func StringProccess(list []string, chain []func(string) string) {
+    // 遍历每一个字符串
+    for index, str := range list {
+        // 第一个需要处理的字符串
+        result := str
+        // 遍历每一个处理链
+        for _, proc := range chain {
+            // 输入一个字符串进行处理，返回数据作为下一个处理链的输入。
+            result = proc(result)
+        }
+        // 将结果放回切片
+        list[index] = result
+    }
+}
+// 自定义的移除前缀的处理函数
+func removePrefix(str string) string {
+    return strings.TrimPrefix(str, "go")
+}
+func main() {
+    // 待处理的字符串列表
+    list := []string{
+        "go scanner",
+        "go parser",
+        "go compiler",
+        "go printer",
+        "go formater",
+    }
+    // 处理函数链
+    chain := []func(string) string{
+        removePrefix,
+        strings.TrimSpace,
+        strings.ToUpper,
+    }
+    // 处理字符串
+    StringProccess(list, chain)
+    // 输出处理好的字符串
+    for _, str := range list {
+        fmt.Println(str)
+    }
+}
+```
+
+
+
+
+
+### Go语言匿名函数——没有函数名字的函数
+
+Go语言支持匿名函数，即在需要使用函数时再定义函数，匿名函数没有函数名只有函数体。体，函数可以作为一种类型被赋值给函数类型的变量，
+
+匿名函数的定义格式如下：
+
+```go
+func(参数列表)(返回参数列表){
+    函数体
+}
+```
+
+```go
+// 将匿名函数体保存到f()中
+f := func(data int) {
+    fmt.Println("hello", data)
+}
+// 使用f()调用
+f(100)
+```
+
+
+
+
+
+### Go语言函数类型实现接口——把函数作为接口来调用
+
+ 学完接口在看这里
+
+
+
+### Go语言闭包（Closure）——引用了外部变量的匿名函数
+
