@@ -288,3 +288,1126 @@ Price = 8;      #//区分大小写(price 和Price不是同一个）
                      #//print(train)  train[2]=55 print(train) 
 ```
 
+
+
+
+
+
+
+## 变量和数据类型
+
+### 变量的定义和赋值
+
+```python
+age =3;           #//变量赋值(实现，获得空间)
+                  #//1age =5;   (报错 命名：数字不能在前)               
+name = 'ivan';    #//变量赋值字符串类型
+girl = {'name':'lili','age':30}; #//变量赋值字典类型
+a,b=1,2;          #//多重赋值， 拆解为  a=1;  b=2; 
+a = b = 1;        #//连续赋值， 拆解为  a=1;  b=1; 
+```
+
+### 基础数据类型
+
+**number: 数字(整形 浮点型 复数）**
+
+```python
+a,b,c = 10,3.14,1+2j  
+print(a,b,c)
+print(a+c) 
+print(c,type(c))
+```
+
+输出：
+
+```python
+10 3.14 (1+2j)
+(11+2j)
+(1+2j) <class 'complex'>
+```
+
+
+
+**string: 字符串**
+
+```python
+str = 'hello baby'; 
+print(str,str[1],str[2:4],str[6:],str[:5]); 
+name="good" 
+print(str+name);
+```
+
+输出：
+
+```python
+hello baby e ll baby hello
+hello babygood
+```
+
+
+
+**boolean:布尔值(逻辑判断)**
+
+```python
+ret = 2>1;
+print(ret); 
+ret =False;
+if(ret):
+  print('this is true');
+else:
+  print('this is false');
+```
+
+输出
+
+```text
+True
+this is false
+```
+
+### **复合数据类型**
+
+
+
+#### 列表对象(升级版的数组)
+
+```python
+train = [50,20,'apple'];
+print(train);
+list = train;
+train[2] = 'tv';
+print(train);
+print(list);
+```
+
+
+
+输出：
+
+```python
+[50, 20, 'apple']
+[50, 20, 'tv']
+[50, 20, 'tv']
+```
+
+python的复杂类型是类似于c++指针，java中的引用类型
+
+
+
+```python
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+print(basket);
+print('banana' in basket);
+basket[2]=[1,2,3] 
+def func():
+    print("nihao")
+basket[2]=func 
+basket[2]()
+```
+
+
+
+输出：
+
+```text
+['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+True
+nihao
+```
+
+
+
+
+
+
+
+
+
+#### 元组对象（只读的列表）
+
+```python
+tuples = (1,6,'ivan',3,'good',77);
+print(tuples);       #//输出 (1,6,'ivan',3,'good',77)
+print(tuples[1]);    #//输出 6
+print(tuples[1:3]);  #//输出 (6, 'ivan')   
+	
+tuples[1]=2;        #//报错，元祖是禁止修改的			
+
+tu2 =(56,'yzg',3)
+print(tuples+tu2)   #//拼接
+
+print(tuples[2.0])  #//报错：TypeError: tuple indices must be integers or slices, not float 
+                    #原因时类型不匹配，需把2.0  转为int 用 int(2.0)
+    
+```
+
+
+
+#### 集合对象(无序 不重复)
+
+他里面可以存储复杂类型，甚至函数
+
+```python
+basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+print(basket);
+print('banana' in basket);
+```
+
+#### 字典对象(键值对 类似JSON对象) 
+
+```python
+man={'name':'ivan','age':30};
+print(man);
+obj={};  #//定义空的字典对象
+obj['name']='yzg';
+obj['age']=28;
+print(obj['name'],type(obj));
+man = obj;
+obj['age'] =10;
+print(man);
+```
+
+
+
+### 空间分配:  变量里存放的是引用
+
+```python
+str1 = "ivan";
+str2 = str1;    #//赋值是 引用的拷贝(引用是指向实体的地址)
+print(id(str1)) #//id() 是查看对象的存储地址
+print(id(str2))
+print('str1 = ' + str1);  
+print('str2 = ' + str2); 	
+str1 = "yzg";
+print(id(str1))
+print(id(str2))
+a =1 
+b =a 
+print(id(a))
+print(id(b))
+```
+
+```python
+140686874448880
+140686874448880
+str1 = ivan
+str2 = ivan
+140686874449136
+140686874448880
+9788992
+9788992
+```
+
+```python
+obj1 = {'name':'ivan', 'age':30};
+obj2 = obj1;            #//赋值只是引用的拷贝，它们还是指向同一实体
+obj1['name'] = 'yzg';   #//本身可变 
+print('obj1 name = ' + obj1['name']);  
+print('obj2 name = ' + obj2['name']); 	#//都改变为'yzg'， 证明指向的是同一实体	
+```
+
+
+
+
+
+### 嵌套引用：可扩展表示 复杂数据结构
+
+```python
+train = [50,20,'apple'];
+train[1] ={'name':'lili','age':30}
+print(train)
+
+
+#//可把函数名，看成指向代码块的引用
+def gogo():
+    print("i can gogogo")
+    
+train[1]['teach']=gogo  
+print(train)
+train[1]['teach']()	
+```
+
+
+
+
+
+### 数据运算
+
+#### 算术
+
+```python
+print(6+3*5/2); 
+#//---浮点型精度问题(因二进制，0.333表示有问题）运算中有0.3出现都会有问题
+print(0.3-0.2);             #输出0.099  
+print(0.1+0.2==0.3);        #输出 false
+#//解决方法：放大后再缩小
+print((10*0.1+10*0.2)/10==0.3); #输出 true 
+#//---% 取模(求余）
+print(3%2);  #单双数判断
+
+#//---优先运算加 ()  
+print((10+20)/2);  
+
+print(2**3);  #//2的3次方(幂) 2^3
+print(9//2);  #//取整除 为4	 结果就不会是小数了
+```
+
+
+
+#### 赋值运算
+
+```python
+a=2; 	 
+a+=3 	  #//与 a = a+3; 相同
+print(a); 
+a%=2;     #//与 a = a%2; 相同
+print(a);    
+a**=3
+print(a);    
+a = 9; 
+a//=4
+print(a); 
+```
+
+#### 比较
+
+```python
+age =18;
+if(age>=18):
+  print('成年');
+
+today ='11.10';
+if(today!='11.11'):
+  print('双11还未到');
+
+a=2;
+b='2';
+if(a==b):
+  print('值相等');
+```
+
+#### 位运算
+
+```python
+a=60 #//对应二进制00111100
+b=13 #//对应二进制00001101
+print(a&b)    # 00001100
+print(a|b)    # 00111101
+print(a^b)    # 00110001(‘异’或，一样为0不一样为1)
+print(~a)     # 11000011
+c=4           # 00000100
+print(c<<1)   # 00001000
+print(c>>1)   # 00000010
+```
+
+#### 逻辑运算
+
+!--->not  &&-->and  ||--->or
+
+```python
+age =25;
+print('是青年吗 ',(age>18 and age<30));
+
+hasHouse,money =True,1000;
+#hasHouse,money =False,1000;
+if(hasHouse or money>1000000):
+  print("有房或有100万,嫁给他")
+
+if not(hasHouse or money>1000000):
+  print("即没房也没100万,不嫁")
+
+list = [1,2,3,4,8];
+print('3在list中吗',3 in list);
+print('6不在list中吗',6 not in list);
+
+lili = {'name':'lili','age':30};
+x = lili;
+x['name']='linda';
+print(x,'是lili这个人吗',x is lili);
+```
+
+#### 类型转换
+
+```python
+#//int() 转换为整型数字 	
+print(int(3.14)+2);	#5
+print(int('12')+5); #17
+print(int(0xa)+3); # 13
+#//转float
+print(float(3)+1.24);#4.24
+print(3+1.24); #4.24
+#//str() 转换为字符串    
+print(str('12')+'5');  #125
+
+lili = {'name':'lili','age':30};
+print(str(lili)+'good');
+print(lili+'good'); #fail  error	
+
+#//隐式转换（自动转换）   
+name = 'ivan';  print(name[1]); #//字符串转换为列表 --> 查找某位置的字符
+print( '7'+'people');           #//数字转换为字符串	--> 进行拼接
+print( '7'-'people');           #//报错：隐式转换失败 error 	
+```
+
+
+
+## 流程控制
+
+#### 分支判断
+
+```python
+age=12;            #//要顶格写
+if(age<18):        #//true  逻辑成立为真
+  print('未成年'); #//注意要有缩进
+else:              #//false 逻辑不成立为假
+  print('成年');
+
+#//注意: python里无switch	
+```
+
+**猜数字**
+
+```python
+import random
+pcNum = random.randint(0, 100)
+
+def guess_num(num):
+    print("right num is ",pcNum)
+    if pcNum > num:
+        print('你的数字小了')
+        return 1
+    elif pcNum < num:
+        print('你的数字大了')
+        return 1
+    else:
+        print('你赢了')
+        return 0
+
+ret = 1
+while(1):
+    num  = int(input('请输入数字(0-100)\n'))
+    if(guess_num(num) ==0):
+        break
+```
+
+**什么是真，什么是假？**
+
+```python
+a =1;
+#a =0;
+a ='lili';
+#a ='';
+a ={'name':'lili'};
+#a ={};
+if(a):  #//真的 True  非零数字 非空字符串 非空对象
+  print('真');
+else:   #//假   False 数字零   空字符串 空对象;  
+  print('假');
+```
+
+#### 循环while
+
+```python
+i=0;
+while(i<5):   #//先判断，再决定是否继续做
+  i = i+1;
+	print(i);
+```
+
+**例:计算1+2+3 ... +98+99+100的值**
+
+```python
+total=0;
+i=1;
+while(i<=100):
+  total+=i;
+  i+=1;
+print(total);
+```
+
+**斐波那契数列**
+
+```python
+a, b = 0, 1   #//多重赋值， 拆解为  a=0;  b=1; 
+while a < 10:
+    print(a)
+    a, b = b, a+b
+```
+
+
+
+#### 循环for
+
+```python
+#//遍历对象元素	
+box = ['banana', 'apple',  'book']
+for e in box:   
+   print(e);
+   
+for x in 'Python':  #//遍历
+   print(x);  	
+```
+
+**累加加**
+
+```python
+box = [2,6,3]
+sum=0
+for e in box:
+    sum+=e
+print("sum=",sum)
+```
+
+**遍历一个数字数列**
+
+```python
+for i in range(5):
+  if(i==2):
+    break;      #//跳出终止整个循环
+    #//continue;  跳过本次循环，继续下一次循环
+  print(i);
+```
+
+```text
+0
+1  
+```
+
+
+
+```python
+range(start, stop[, step])
+```
+
++ start: 计数从 start 开始。默认是从 0 开始。例如range（5）等价于range（0， 5）;
++ stop: 计数到 stop 结束，**但不包括 stop**。例如：range（0， 5） 是[0, 1, 2, 3, 4]没有5
++ step：步长，默认为1。例如：range（0， 5） 等价于 range(0, 5, 1)
+
+
+
+
+
+**找出偶数值**
+
+```python
+for num in range(2, 10):
+    if num % 2 == 0:
+        print("找到一偶数：", num)
+    continue
+```
+
+```python
+找到一偶数： 2
+找到一偶数： 4
+找到一偶数： 6
+找到一偶数： 8
+```
+
+**除女同学都不需要报年龄**
+
+```python
+listPerson = [{'name':'lili','sex':'male','age':35},
+              {'name':'wg','sex':'male','age':28},
+              {'name':'xm','sex':'male','age':26},
+              {'name':'linda','sex':'female','age':32},
+              {'name':'ww','sex':'male','age':37}];
+
+for obj in listPerson:
+  if(obj['sex']=='female'):
+    print('female no report age');
+    continue;
+  print(obj); 
+```
+
+**二分查找**
+
+```python
+def bisearch(buf, key):
+    l1 = 0
+    h1 = len(buf) - 1
+    index = 0
+    while l1 < h1:
+        mid = (h1 + l1)  #// 2
+        if buf[mid] < key:
+            l1 = mid
+        elif buf[mid] > key:
+            h1 = mid
+        else:
+            print('find it {}'.format(buf[mid]))
+            index = mid
+            break
+    return index
+
+data = [1, 2, 4, 7, 9, 11, 33, 77]
+i = bisearch(data, 9)
+print('location index is', i)	
+```
+
+
+
+## 函数
+
+### 定义说明
+
+### 初识
+
+```python
+#//关键字：def                --  让系统识别 这是函数
+#//函数名: start              --  名字 (事情的名称， 注： 定义多个函数时名字不能相同)
+#//函数体：冒号后缩进的代码块 --  内容（描述事如何做）
+def start():   # 定义（规划做什么事）                
+  print('starting... machine ');
+  print('start success');	
+```
+
+**例：做菜**
+
+```python
+def doDinner(name):
+  print('i do dinner '+ name);
+doDinner('fish');
+doDinner('红烧肉');
+doDinner('清炒土豆丝'); 
+```
+
+### 定义声明（规划做什么事），及调用（开始做事）
+
+```python
+def sum(n): #//空函数
+  pass      #//占位，什么也不做
+
+sum();
+```
+
+### 传参
+
+传递的是引用
+
+```python
+def start(name): #//函数参数: ()  --  输入（做事需要什么东西， 如 name）             
+  print('start '+ name +' success');		           
+
+start('iphone');
+start('pad');
+
+def start2(n): #//形参 n （相当于局部变量）
+  #//n = a;  参数n 相当于局部变量，
+  print('start '+ n +' success');	
+a ='iphone';
+start2(a);    #//函数传参， 类似于变量的赋值   n = a;，把实参赋值给形参
+```
+
+**列表做参数 （引用的拷贝，都指向同一份实体)**
+
+```python
+a = ['ivan','yzg','lili']
+def change(addr):
+	addr[1]='wangwei';
+change(a);
+print(a);
+```
+
+```text
+['ivan', 'wangwei', 'lili']
+```
+
+
+
+**字典做参数**
+
+```python
+def car(): print(' dirver car');  #//需先定义，后再使用
+def bus(): print(' dirver bus');
+
+person ={
+  'name':'ivan',
+  'driver':car      
+}
+
+def change(obj):
+  obj['name']='yzg';   #//更改对象的属性
+  obj['driver']= bus;  #//更改对象的方法
+
+change(person);
+print(person['name']);
+person['driver']();
+```
+
+```text
+yzg
+dirver bus
+```
+
+
+
+**函数做参数**
+
+```python
+def fn(callback): #//函数参数: ()  --  输入（做事需要什么东西， 如 callback） 
+  print(callback,' type:',type(callback));
+  callback();    #//通过参数，间接调用函数 (回调函数）       
+
+def start():
+  print('start tv');
+
+fn(start);  #//函数做参数传入
+```
+
+
+
+
+
+```text
+<function start at 0x7fb44519f0d0>  type: <class 'function'>
+start tv
+```
+
+
+
+**类对象做参数**
+
+```python
+class Animal:  #//定义对象 Animal
+  name = "animal";
+  def breath(this):
+    print("can breath from water");
+
+def air():
+  print("breath from air");
+def change(o):
+  print("after change");
+  o.breath = air;
+
+obj =  Animal(); #//新建对象实例
+print(obj.name);
+obj.breath();
+change(obj);     #//对象做实参（引用类型传递 是地址传递，指向的是同一实体)
+print(obj.name);
+obj.breath();	
+```
+
+
+
+
+
+```text
+animal
+can breath from water
+after change
+animal
+breath from air
+```
+
+
+
+**默认参数**
+
+默认参数只能在末尾，可多个。
+
+```python
+def fn(name,money=500):
+  print(name,'捐款',money);
+
+fn('lili',1000);
+fn('wangwei');
+```
+
+```text
+lili 捐款 1000
+wangwei 捐款 500
+```
+
+
+
+
+
+**不定参**
+
+*args 传入的参数是 元组类型
+
+```python
+def test(*args):    
+    print(args)   
+    for i in args:
+        print(i)
+
+test(1,2,3)
+```
+
+
+
+```text
+(1, 2, 3)
+1
+2
+3
+```
+
+****kwargs 传入的参数是 dict 类型**
+
+```python
+def test(**kwargs):
+    print(kwargs)
+    keys = kwargs.keys()
+    value = kwargs.values()
+    print(keys)
+    print(value)
+
+test(a=1,b=2,c=3,d=4)
+```
+
+```text
+{'a': 1, 'b': 2, 'c': 3, 'd': 4}
+dict_keys(['a', 'b', 'c', 'd'])
+dict_values([1, 2, 3, 4])
+```
+
+### 例子
+
+**多个数的累加加**
+
+```python
+def sum(*args):    #//args里存放了所以的实参
+    ret = 0;
+    for obj in args:
+        print(obj);
+        ret += obj;
+    print('sum is', ret);
+    return ret;
+
+sum(1);
+sum(1, 4, 3);	
+```
+
+```text
+1
+sum is 1
+1
+4
+3
+sum is 8
+```
+
+**作业：写一个按照下面方式调用都能正常工作的 sum 函数**
+
+```python
+print(sum(2,3));  #// Outputs 5
+print(sum(2)(3)); #// Outputs 5
+```
+
+answer
+
+```python
+def sum(*args):
+  fir = args[0];
+  if(len(args) == 2):
+    return args[0] + args[1];
+  else:
+    return lambda sec:fir + sec;
+print(sum(2,3));
+print(sum(2)(3));
+```
+
+
+
+python的lamda表达式是一种匿名函数
+
+```python
+lambda arguments : expression
+```
+
+```python
+x = lambda a : a + 10
+print(x(5)) #15
+```
+
+·
+
+**作业: 下面程序输出为多少,为什么**
+
+```python
+def func(o):
+    o['siteUrl'] = "http://www.csser.com/";
+    o={};    
+    o['siteUrl'] = "http://www.popcg.com/";  #//改变的是另一个新创建的对象内容
+CSSer={};
+func(CSSer);  #//o= CSSer;
+print(CSSer['siteUrl']); 
+```
+
+```text
+http://www.csser.com/
+```
+
+
+
+## 返回值
+
+```python
+def sum(x, y):
+    return x + y; #// 函数返回值：return --  输出（做完事后能得到什么）
+                  #// 注：无return时，返回None，  return 后面语句不执行
+print(sum(3, 5)); #// 传参调用
+```
+
+```text
+8
+```
+
+### 返回函数
+
+```python
+def fn(a):
+  print('fn run');
+  def fnn(b):
+    print('fnn run ..');
+    return a+b;
+  return fnn;
+print(fn(10)(20));
+```
+
+**解析：拆分 替换法**
+
+```python
+def fn(a):
+#//  a =10;
+    print('fn run');
+    def  fnn(b):  //局部函数 （函数内的函数）
+# // b = 20;
+        print(' run ..');
+        return a+b;
+    return fnn;   //函数名只有加（），才表示调用函数执行。否则只是引用地址的传递
+#//fnn();  报错， 原因：局部函数外部不能访问，
+#//print(fn(10)(20));
+x = fn(10);  #//x = func2     x里存放的是函数执行的结果，即 return 后面的东西
+y= x(20);    #//y = func2(20);  局部函数可以通过return暴露给外面访问。
+             #//  y = a+b;   y里面存放函数执行的结果（即return 后面的东西）
+print(y);    #//30；	
+```
+
+### 返回对象
+
+```python
+def fun():
+  return {
+    'name': 'ivan',
+    'driver':lambda str:'can dirver '+str,
+  };
+print('Person '+ fun()['name']);
+print(fun()['driver']('car'));
+```
+
+### 作用域
+
+作用域： 能读写变量函数的范围  -->  权限
+
+```python
+country = 'china'; #// 全局变量(任意地方用）
+
+def fn():       #// 函数作用域分函数内外
+    country = 'yindu';
+    age = 35;    #// 局部变量
+    print('fn: ', country);
+    print('fn: ', age);
+    def fn1():  #//局部函数
+        print('fn1 go ');
+
+print(country);
+fn();
+print(age); #// 不能访问函数内部资源， 故报错NameError::age is not defined
+fn1(); #// 局部函数不能访问
+```
+
+**作用域链(挑战)	**
+
+ 函数嵌套 --> 形成链条 --> 变量回溯（当前没有，沿着链条追查上家）
+
+```python
+name = "first";
+def fn1():
+    name = "second";
+    def fn2():
+        print(name); #// 变量回溯（当前没有，追查上家）
+    fn2();
+    print(name);
+
+fn1();
+print(name);
+fn2(); #// fn2是局部函数，不能访问
+```
+
+**下面程序输出的信息是**
+
+```python
+country='china';  #//全局变量(任意地方用）
+age =80;
+def fn():
+  country = 'yindu';
+  print('2 level country is ',country);
+  name1 = 'ivan';  #//局部变量(只能在函数内部用）
+  age =30;      #//同名时，在局部作用域内（函数内），局部变量有效。
+
+  def fn():      #//嵌套子函数
+    print('3 level name is ',name1);  #//子函数可用父函数作用域内的变量 
+    age =8;
+  fn();
+  print('2 level age is ',age);
+fn();
+print('1 level age is ',age);    #//80 同名时：函数外，全局变量的有效 
+print('1 level name is ',name1); #//不能访问局部变量 NameError: name 'name1' is not defined
+```
+
+**下面程序输出的信息是**
+
+```python
+i=0;
+def fn1(i):
+  print( 'i = ',i);
+
+a = [1,2,3];
+def fn(callback):
+  for i in range(3):
+    a[i] = callback;
+  callback(i);
+fn(fn1);
+a[0](i);
+a[1](i);
+```
+
+## 函数式编程(挑战):面向映射
+
+命令式编程(面向过程): 关心执行步骤，有变量，表达式，控制语句等 -> 解决步骤(告诉机器 怎么做)
+
+元编程(面向对象): 以对象(独立个体)为核心，组织数据和关系 ->  找对象(告诉机器 是谁做的) 
+
+函数式编程(面向映射):像数学函数(表达式)一样计算，无需更改状态和数据 ->  映射关系(告诉机器 做什么) 
+
+### 匿名函数(用于 中间处理 无需命名 -》简洁 ) 
+
+```python
+fn = lambda x:x+10;  #//创建匿名函数lambda，让变量fn 指向它
+	             #//lambda:冒号 左侧表示函数接收的参数x ,右侧表示函数的返回值x+10
+	             #//等价于 def fn(x):return x+10
+print(fn(1));
+print((lambda x:x+10)(3)) #//可定义调用一气完成
+
+c = lambda x,y=2: x+y    //默认值
+print(c(10))	
+
+L = [(lambda x: x**2),(lambda x: x**4)]  //字典中
+print(L[0](2),L[1](2));
+print((lambda x,y: x if x> y else y)(3,5))  //求最值（类三目运算）
+```
+
+### 高阶函数: 以函数为参数或返回值的函数
+
+对列表的元素都求平方
+
+```python
+def square(x):  #//普通函数
+	return x**2
+	
+a = map(square, [1,2,3]) #//高阶函数:以函数为参数或返回值的函数
+	
+print(list(a))	  #//map返回类型是map，需用list转换为列表	
+```
+
+```text
+[1, 4, 9]
+```
+
+square 只是中间转换作用，可以用匿名函数-> 省去取名烦恼（因没必要取名）		
+
+```python
+a = map(lambda x: x**2, [1,2,3])
+print(list(a))	
+```
+
+### 闭包:内部函数用到外部的变量 -》驻留：信息保持
+
+```python
+def outer(x):
+    def inner(y):  #//inner是闭包，它引用外部的变量x
+        return x + y
+    return inner 
+
+a = outer(2)
+print('result:',a(3)) #//驻留了前面2的信息
+```
+
++ 驻留：信息保持(引用在，资源不回收)
+
+```python
+例: 资料上传一半，可接着上传
+def register(name): //注册信息
+    def upload(age): //提交信息
+        print('name:', name, 'age:', age);
+    return upload;
+
+step = register('wangwei');  //第一步，填入姓名
+step(26); #//第二步，填入年龄 ，驻留(保持)了前面姓名的信息
+          #//也突破作用域限制： 能调用内部函数fnn  （通过引用访问函数内的函数）
+```
+
++ 闭包内不能改写，外部函数的同名局部变量`
+
+```python
+def outer():
+    x = 5        #//python规则，赋值语句左面的变量都是局部变量
+    def inner(): #//上面一行的x相对inner函数来说是函数外的局部变量（非全局变量）    	           
+        x *= x   #//不能改写函数外的同名变量  error
+        return x
+    return inner
+outer()()	
+```
+
+
+
+解决办法：通过复合数据类型来解决 (因它不是存在栈空间)
+
+```python
+def outer():
+    x = [5]   #//变为容器类(复合类型)，因它不是存在栈空间上 (它内部又指向另一空间)
+    def inner(): 
+        x[0] *= x[0]
+        return x[0]   
+    return inner   #//返回函数名（暴露内部信息 ）
+
+print(outer()())  #25	
+```
+
+###  作业：棋盘移动
+
+**作业：棋盘移动**
+
+```text
+假设棋盘大小为50*50，左上角为坐标系原点(0,0)，
+设计一个函数，接收2个参数，分别为方向(direction)，步长(step)，
+该函数控制棋子的运动。棋子运动的新的坐标除了依赖于方向和步长以外，
+当然还要根据原来所处的坐标点，用闭包就可以保持住这个棋子原来所处的坐标。
+```
+
+
+
+```python
+origin = [0, 0] 
+legal_x = [0, 50]  
+legal_y = [0, 50] 
+def create(pos=origin):   
+    def player(direction,step):        
+        new_x = pos[0] + direction[0]*step    
+        new_y = pos[1] + direction[1]*step    
+        pos[0] = new_x    
+        pos[1] = new_y    
+        #//注意！此处不能写成 pos = [new_x, new_y]，因为参数变量不能被修改，而pos[]是容器类的解决方法 
+        return pos   
+    return player    
+
+player = create() # //创建棋子player，起点为原点  
+print(player([1,0],10)) # //向x轴正方向移动10步  
+print(player([0,1],20)) # //向y轴正方向移动20步  
+print(player([-1,0],10)) # //向x轴负方向移动10步 
+```
+
+
+
