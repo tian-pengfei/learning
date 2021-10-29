@@ -1411,3 +1411,424 @@ print(player([-1,0],10)) # //向x轴负方向移动10步
 
 
 
+
+
+## 面向对象
+
+### 初识
+
+```python
+class Actor:       #//定义类(只是想法)
+  name = '赵丽颖'  #//类属性
+  age  = 35
+  def act(self):   #//类行为(方法)：形参self必须有，类似java中的this代表类的实例， 
+    print(self.name," 会演戏")
+  def sing(self):
+    print(self.name," 会唱歌")
+
+obj = Actor() #//创建类的实例对象 
+print(obj.name) #//访问对象的属性
+print(obj.age)
+obj.act()     #//调用对象的方法（无参，但其实有参，它是隐藏的第一个实参，为类的实例)	
+obj.sing()    
+
+#//动态语言：可动态添加属性和方法(python是动态语言,不像c++静态语言，定义完后，后面不能修改)
+obj.addr="成都"  #//动态添加属性
+print(obj.addr)
+
+def show(self):
+    print(self.name,self.age,self.addr);
+
+obj.show = show; #//动态添加方法
+obj.show(obj) #//动态添加的要传入对象实例，不能隐藏
+obj.sing() 	
+
+```
+
+
+
+输出：
+
+```tex
+赵丽颖
+35
+赵丽颖  会演戏
+赵丽颖  会唱歌
+成都
+赵丽颖 35 成都
+赵丽颖  会唱歌
+```
+
+### 
+
+
+
+### 定义父类
+
+```python
+class Animal:      #//定义类(只是想法)
+  name = 'animal'  #//类属性
+  def eat(self):   #//类行为(方法)：形参self必须有(类似this)，代表类的实例
+    print(self.name," can eat")
+  def breath(self):
+    print(self.name," can breath")
+  def run(self):
+    print(self.name," can run")	
+
+#//父类：通常是抽象出来的
+```
+
+
+
+### 子类的继承
+
+```python
+class Cat(Animal):    #//定义子类Cat继承于类Animal(父类）
+   name='cat'
+   def catchMouse(self):  #//派生的新方法
+     print(self.name," can catchMouse")
+   def breath(self):
+     print(self.name," can breath from air")		
+
+class Fish(Animal):    
+   name='fish'
+   def swim(self):  #//派生的新方法
+     print(self.name," can swim")
+   def breath(self,str):
+     print(self.name," can breath from ",str)	
+```
+
+**继承：复用(不用重复写父类方法)**
+
+**扩展：子类Cat在继承父类Animal的能力eat，run基础上，可派生新能力，如catchMouse**
+
+**隐藏：子类会把父类的同名方法挡住**
+
+
+
+### 类的使用
+
+```python
+c = Cat()  #//新建类的实例对象c 
+c.catchMouse()
+c.breath()
+c.run()
+
+f = Fish() #//新建类的实例对象f 
+f.eat();
+f.breath('water');
+f.swim();
+f.breath();   #//会报错参数个数不匹配，因子类会隐藏了父类的同名函数, 
+              #//1.用默认参数解决
+              #//def breath(self,str='water')  
+	     	  #//   print(self.name," can breath from ",str)	
+	      	  #//注意：用重载不行，下面的同名函数会覆盖上面的同名函数，不会智能匹配参数个数
+              #//2.用不定参  
+```
+
+
+
+### 多重继承
+
+```python
+class Father:
+  name ="father";
+  def football(self):
+    print(self.name,"play football good");
+  def talk(self):
+    print(self.name, "talk fast");
+
+class Mother:
+  name ="mother"
+  def music(self):
+    print(self.name,"play music good");
+  def talk(self):
+    print(self.name, "talk slow");
+
+class Son(Father,Mother): #//多重继承：儿子同事继承父母天赋
+  name ="son"
+  def draw(self):
+    print(self.name,"draw good");
+
+s =Son();
+s.football();
+s.music()
+s.draw()
+s.talk()  #//python没有二义性问题（c++有），父母都有时，以前一个为准
+
+```
+
+```tex
+son play football good
+son play music good
+son draw good
+son talk fast
+```
+
+
+
+### 多态(未来性)
+
+```python
+def play(obj):    
+  obj.breath()  #//使用者在不知道具体对象情况下，直接掉接口breath. 
+                #//breath会根据对象做调整
+
+play(c);   
+play(f); 
+```
+
+
+
+
+
+### 构造函数 析构函数
+
+```python
+class Line:
+  name='a line'
+  def __init__(this,len=3): #//可选，无时，会有默认的
+    this.length = len  # 直接可以增加属性
+    print('构造函数运行')
+  def __del__(this): #//可选，无时，会有默认的
+    print('析构函数运行，释放资源')
+  def show(this):
+    print('length is',this.length);
+
+
+obj = Line() #//创建对象实例时，自动调用构造函数。
+obj.show();  #//执行完自动析构(引用计数方式，进行垃圾回收)
+print('length is ',obj.length);
+```
+
+
+
+输出：
+
+```tex
+构造函数运行
+length is 3
+length is  3
+析构函数运行，释放资源
+```
+
+
+
+
+
+### 权限
+
+
+
+```python
+class Girl:      #//定义类(只是想法)
+  name = 'girl'
+  __age = 30     #//私有属性(以下划线开头)
+  def registerInfo(this):
+    print(this.name,'age is ',this.__age)  #//私有属性仅内部能访问
+  def __getAge(this): #//私有方法(以下划线开头)
+    print('private __getAge is ',this.__age)
+
+g = Girl()
+g.registerInfo()
+print(g.name)
+g.__getAge()        #//报错： 私有方法外部不能访问 
+print(g.__age)      #//报错： 私有属性外部不能访问   (女孩年龄是秘密)        
+print(g._Girl__age) #//通过这种方式，外面也能够访问“私有”变量；调试中是比较有用的！
+```
+
+
+
+### 链式调用
+
+```python
+class Person:
+  def name(self, str):
+    self.name = str
+    return self
+  def age(self, str):
+    self.age = str
+    return self
+  def show(self):
+    return self.name,self.age
+
+obj=Person()
+print(obj.name("ivan").age(37).show())	
+```
+
+输出
+
+```tex
+('ivan', 37)
+```
+
+
+
+**作业**
+
+用链式调用，实现多关键词的信息查询,例如 
+
+```python
+query.filter(name='lili').filter(age__gt=18, address='chengdu').filter(salary=12000)
+print(query.query_condition)  #//最后提交给数据库的查询信息
+```
+
+
+
+
+
+```python
+class Query():
+    def __init__(self):
+        self.query_condition = {}
+    def filter(self, **kwargs):
+        self.query_condition.update(kwargs)
+        return self
+				
+query = Query()
+a = query.filter(name='lili').filter(age__gt=18, address='chengdu').filter(salary=12000)
+print(query.query_condition) #//最后提交给数据库的查询信息
+```
+
+
+
+用到了字典的update方法向里面更新添加数据
+
+
+
+```tex
+{'name': 'lili', 'age__gt': 18, 'address': 'chengdu', 'salary': 12000}
+```
+
+
+
+
+
+### 列表对象
+
+列表对象，升级版的数组
+
+```python
+worker=['yzg','ivan','liwei']; #//创建列表
+print(worker[0]);
+print(worker);
+
+a2=[[2,3,4],[5,6,7],[8,9,10]]; #//创建多维列表
+print(a2[1][2]);
+a2[2] = 'ivan';
+print(a2);
+```
+
+
+
+**对象列表的实现**
+
+
+
+```python
+worker=['yzg','ivan','liwei']; #//创建列表
+print(worker[0]);
+print(worker);
+
+a2=[[2,3,4],[5,6,7],[8,9,10]]; #//创建多维列表
+print(a2[1][2]);
+a2[2] = 'ivan';
+print(a2);
+```
+
+
+
+**改变原列表的操作方法**
+
+```python
+#//---增删改
+a = [2,5,9];
+print(a);
+a.append(9);      #//从尾部添加 (append是列表对象内置的方法函数)
+print(a);
+a.extend(['lili',9]) #//从尾部添加多个元素
+print(a);
+
+a.pop();          #//从尾部删除
+print(a);
+a.remove(5);      #//删除指定元素
+print(a);
+
+a.insert(1, 'i')  #//插入指定位置
+print(a);
+a.insert(-2, '-i') #没有 -0  
+print(a);
+
+worker = ['ivan','yzg','lili','ww']
+worker[3] = 'wangw'  #//元素的更改 
+print(worker)
+#//---选取 
+age = [13,10,15,50,22,60,20];
+print(age[2:5])
+print(age[2:])
+print(age[:3])
+print(age[-2:])	
+age[2:5]=3,3,3 # 批量插入
+print(age)
+	
+#//---排序
+age = [13,10,15,50,22];
+age.sort();           #//升序（直接在原列表上修改）
+print(age);
+
+stu = ['lili','ivan','ara11111','1ciga'];  
+print(stu)  
+stu.sort();           #//排序以第一个字符来排序（数字先排，排完后，按字母顺序）
+print(stu);  	
+
+age.reverse();        #//颠倒  （升序颠倒后就是降序）  
+print(age);	   
+
+```
+
+
+
+**不改变 原列表的操作方法**
+
+```python
+#//---查找
+arr = [1, 2, 2,3];
+print(len(arr));      #//查看列表的长度
+print(arr.count(2));  #//查看指定元素的个数
+print(max(arr));      #//查看最大值的元素 
+print(min(arr));      #//查看最小值的元素 
+	
+print(arr.index(2)) #//查找元素位置
+print(2 in arr)	    #//有该元素吗
+#//---遍历
+age = [40,20,10,30];
+sum=0;
+for v in age:
+  sum+=v
+print(sum);
+
+#//---转换
+name=['ivan','yzg','lili'];
+print(" ".join(name))               #//转换为字符串
+list =[1,2,5,7,9]
+print([v*10 for v in list if v>5]); #//列表推导
+	
+#//---运算
+age1 = [13,10,15]
+age2 = [10,5]
+age = age1+age2     #//拼接
+print(age)
+print(age2*2)      
+print(age1==age2)   #//判断两列表是否相等
+
+ret = map(lambda x:x-2,[1,2,3]) #//map映射会遍历列表元素进行转换（调用回调函数lambda）
+print([v for v in ret])         #//因map后的对象不能通过print(ret)输出
+
+ret = map(lambda x,y:x-y,age1,age2)   #//相减(通过map实现）
+print([v for v in ret]) 
+```
+
+
+
+
+
