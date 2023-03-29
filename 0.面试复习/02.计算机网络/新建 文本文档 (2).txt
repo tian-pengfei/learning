@@ -1,0 +1,6 @@
+https://github.com/frank-lam/fullstack-tutorial/blob/master/notes/计算机网络.md
+https://github.com/Ashiamd/docsify-notes/blob/master/docs/study/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0.md
+
+为什么出现TCP 粘包拆包？ https://cloud.tencent.com/developer/article/1804413
+hHTTP幂等性：https://www.cnblogs.com/weidagang2046/archive/2011/06/04/idempotence.html
+HTTP2.0特性

@@ -1,0 +1,9 @@
+文档：
+https://javaguide.cn/database/mongodb/mongodb-questions-01.htmlMogoDB
+
+视频：
+https://www.bilibili.com/video/BV1bJ411x7mq
+
+视频笔记：
+https://zhenye-na.github.io/blog/archive.html?tag=MongoDB  //我很喜欢这个博客风格
+https://frxcat.fun/pages/91197c/

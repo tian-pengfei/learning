@@ -1,0 +1,3 @@
+https://tech.meituan.com/2017/12/22/ddd-in-practice.html
+
+https://insights.thoughtworks.cn/tag/domain-driven-design/

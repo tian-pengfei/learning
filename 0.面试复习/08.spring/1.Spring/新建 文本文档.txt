@@ -1,0 +1,7 @@
+https://github.com/frank-lam/fullstack-tutorial/blob/master/notes/JavaWeb/Spring.md
+https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html
+事务：https://javaguide.cn/system-design/framework/spring/spring-transaction.html
+
+spring中的设计模式： https://zhuanlan.zhihu.com/p/114244039
+
+spring中Bean的生命周期：https://juejin.cn/post/7075168883744718856

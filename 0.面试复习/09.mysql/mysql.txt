@@ -1,0 +1,10 @@
+https://tobebetterjavaer.com/sidebar/sanfene/mysql.html
+https://blog.unclezs.com/pages/f14d52/#%E4%BB%8B%E7%BB%8D         --->锁
+https://blog.csdn.net/weixin_45902285/article/details/126291623 ---->MVVC
+https://juejin.cn/post/6987557227074846733 --->各个log
+
+主：
+https://github.com/frank-lam/fullstack-tutorial/blob/master/notes/MySQL.md
+https://javaguide.cn/database/mysql/mysql-questions-01.html
+
+深分页问题:https://worktile.com/kb/p/24642

@@ -1,0 +1,12 @@
+https://frxcat.fun/pages/e9cc9f/
+https://frxcat.fun/pages/7ab056/ Nosql 理论
+
+https://cloud.tencent.com/developer/article/1757420   redis主从同步机制
+
+
+Mysql和redis缓存不一致问题：--->https://blog.csdn.net/w20001118/article/details/126208585
+
+Redis 相关理解：https://www.jianshu.com/p/bc6904abc330
+缓存穿透、缓存击穿、缓存雪崩区别和解决方案：https://blog.csdn.net/kongtiao5/article/details/82771694
+redis锁：https://juejin.cn/post/6936956908007850014
+redis锁-看门狗：https://blog.csdn.net/bbj12345678/article/details/121150983

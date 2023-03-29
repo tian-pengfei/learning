@@ -1,0 +1,9 @@
+https://juejin.cn/post/6844903985158045703#comment
+https://github.com/frank-lam/fullstack-tutorial/blob/master/notes/JavaArchitecture/04-Java-IO.md
+
+BIO NIO AIO
+https://tech.meituan.com/2016/11/04/nio.html 美团技术团队讲解的NIO 
+https://www.jianshu.com/p/c180a80de754
+
+https://blog.csdn.net/hbuxiaofei/article/details/127085948 IO的总结
+https://zhuanlan.zhihu.com/p/587695921
